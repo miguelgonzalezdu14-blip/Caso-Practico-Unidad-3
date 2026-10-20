@@ -1,0 +1,54 @@
+def GetNumber(matricula: str) -> int:
+    """
+    Extrae la parte numérica de una matrícula corrupta.
+    Toma los caracteres previos al último carácter corrupto.
+    """
+    # Se extraen todos los caracteres numéricos excluyendo el último carácter corrupto
+    numero_str = "".join([char for char in matricula[:-1] if char.isdigit()])
+    return int(numero_str)
+
+
+def GetLetter(numero: int) -> str:
+    """
+    Calcula la letra correcta mediante el resto de la división entre 20 (módulo 20)
+    y retorna la matrícula ajustada.
+    """
+    tabla_letras = "BCDFGHJKLMNPRSTVWXYZ"
+    resto = numero % 20
+    letra_correcta = tabla_letras[resto]
+    return f"{numero}{letra_correcta}"
+
+
+def main():
+    # Diccionario inicial con matrículas corruptas
+    camiones = {
+        201: ["Renault", 2020, "3541BW4"],
+        202: ["Mercedes", 2018, "9834HJ1"],
+        203: ["Volvo", 2005, "6712CK9"],
+        204: ["BMW", 2023, "1289LM2"]
+    }
+
+    print("--- ESTADO INICIAL DE LA FLOTA ---")
+    for id_v, datos in camiones.items():
+        print(f"ID {id_v}: Modelo={datos[0]}, Año={datos[1]}, Matrícula corrupta={datos[2]}")
+
+    # Recorrido e iteración sobre el diccionario
+    for id_vehiculo, datos in camiones.items():
+        matricula_corrupta = datos[2]
+        
+        # Extracción del número de la matrícula
+        numero_matricula = GetNumber(matricula_corrupta)
+        
+        # Cálculo de la matrícula correcta
+        matricula_corregida = GetLetter(numero_matricula)
+        
+        # Modificación directa en la estructura de datos
+        camiones[id_vehiculo][2] = matricula_corregida
+
+    print("\n--- ESTADO CORREGIDO DE LA FLOTA ---")
+    for id_v, datos in camiones.items():
+        print(f"ID {id_v}: Modelo={datos[0]}, Año={datos[1]}, Matrícula corregida={datos[2]}")
+
+
+if __name__ == "__main__":
+    main()

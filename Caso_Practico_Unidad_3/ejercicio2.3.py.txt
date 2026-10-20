@@ -1,0 +1,7 @@
+palabras = ["Python", "Programación", "Lógica", "Desarrollo", "Estructuras"]
+
+# Mapeo de la longitud de cada cadena con lambda
+conteo_letras = list(map(lambda p: len(p), palabras))
+
+print("Palabras:", palabras)
+print("Conteo de letras por palabra:", conteo_letras)
